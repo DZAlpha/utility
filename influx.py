@@ -92,6 +92,8 @@ class InfluxClient:
         return parsed_query
     
     def execute_query(self, query):
+        print("Executing query")
+        print(self.query_api)
         return self.query_api.query_data_frame(org=self.org, query=query)
 
 
