@@ -88,7 +88,7 @@ class InfluxClient:
                     fields_filter += " or "
                 fields_filter += 'r["_field"] == "{}"'.format(field)
             parsed_query += '|> filter(fn: (r) => {})'.format(fields_filter)
-
+        print("query:", parsed_query)
         return parsed_query
     
     def execute_query(self, query):
