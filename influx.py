@@ -48,8 +48,6 @@ class InfluxClient:
 
         self.write_api = self.client.write_api(write_options=SYNCHRONOUS)
         self.query_api = self.client.query_api()
-        print(self.client)
-        print(self.url)
         
     def save(self, currency, metric, time, **kwargs):
         p = influxdb_client.Point(currency).tag("metric", metric).time(time) #time must be pd.to_datetime(xxx, unit='ms')
@@ -94,6 +92,7 @@ class InfluxClient:
         return parsed_query
     
     def execute_query(self, query):
+        print("Executing query:", query)
         return self.query_api.query_data_frame(org=self.org, query=query)
 
 
