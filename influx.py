@@ -50,7 +50,6 @@ class InfluxClient:
         self.query_api = self.client.query_api()
         
     def save(self, currency, metric, time, **kwargs):
-        print("Save called")
         p = influxdb_client.Point(currency).tag("metric", metric).time(time) #time must be pd.to_datetime(xxx, unit='ms')
         for field in kwargs:
             p = p.field(field, kwargs[field])
@@ -89,12 +88,9 @@ class InfluxClient:
                     fields_filter += " or "
                 fields_filter += 'r["_field"] == "{}"'.format(field)
             parsed_query += '|> filter(fn: (r) => {})'.format(fields_filter)
-        print("Query parsed")
         return parsed_query
     
     def execute_query(self, query):
-        print("Executing query")
-        print(self.query_api)
         return self.query_api.query_data_frame(org=self.org, query=query)
 
 
